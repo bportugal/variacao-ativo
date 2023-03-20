@@ -4,7 +4,7 @@ Esse projeto foi desenvolvido com Angular, por Bruno Portugal.
 
 ## Development server
 
-No terminal, rode o comando `ng serve` para iniciar o servidor. Navegue até `http://localhost:4200/`.
+No terminal, primeiramente rode o comando `npm install`, após sua conclusão, rode o comando `ng serve` para iniciar o servidor. Navegue até `http://localhost:4200/`.
 
 ## Explicação de funcionamento
 

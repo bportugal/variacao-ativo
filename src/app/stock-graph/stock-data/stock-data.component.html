@@ -1,0 +1,34 @@
+<div class="modal-content ui-g-12 full-row fl pt20 pb20 modal-content-scroll mat-modal">
+
+    <form [formGroup]="formStock" (ngSubmit)="fetchStockData()">
+        <div class="p-grid ui-fluid">
+            <div class="titulo-form">Dados Obrigatórios <span class="label-required">*</span></div>
+            <div class="full-row">
+                <div class="ui-lg-12 ui-g-12 margin-form">
+                    <div class="ui-lg-6 ui-g-6">
+                        <mat-form-field>
+                            <mat-label>Código da Ação <span class="label-required"></span></mat-label>
+                            <input id="input-codigo" type="text" matInput formControlName="stockFormControl"
+                                (ngModelChange)="stock" />
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Escolha um Range</mat-label>
+                            <mat-select (ngModelChange)="range" formControlName="rangeFormControl">
+                                <mat-option *ngFor="let item of possibleTimeSelecion">{{item}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Escolha um Intervalo</mat-label>
+                            <mat-select (ngModelChange)="interval" formControlName="intervalFormControl">
+                                <mat-option *ngFor="let item of possibleTimeSelecion">{{item}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <button mat-fab extended color="primary" (click)="fetchStockData()">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

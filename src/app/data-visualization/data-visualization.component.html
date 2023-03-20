@@ -1,0 +1,54 @@
+<div style="margin-top: 40px;">
+    <div class="row">
+        <div class="col-sm-6">
+            <google-chart #chart class="chart"
+                [title]="chartProperties.title" 
+                [type]="type" 
+                [data]="chartProperties.data"
+                [width]="chartProperties.width" 
+                [height]="chartProperties.height" 
+                [options]="chartProperties.options">
+            </google-chart>
+
+            <mat-form-field style="display: block;" appearance="fill">
+                <mat-label>Escolha um Tipo de Gráfico</mat-label>
+                <mat-select [(ngModel)]="type" (ngModelChange)="onChartTypeChanged()">
+                    <mat-option *ngFor="let item of possibleChartsSelecion" [value]="item">{{item}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+            <h4>Tabela de Variação de Cotação de Abertura dos últimos 30 dias</h4>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="dia">
+                    <th mat-header-cell *matHeaderCellDef> Dia </th>
+                    <td mat-cell *matCellDef="let element"> {{element.dia}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="data">
+                    <th mat-header-cell *matHeaderCellDef> Data </th>
+                    <td mat-cell *matCellDef="let element"> {{element.data}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="valor">
+                    <th mat-header-cell *matHeaderCellDef> Valores de Abertura </th>
+                    <td mat-cell *matCellDef="let element"> {{element.valor | currency:'R$':true:'1.2-2'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="varAnterior">
+                    <th mat-header-cell *matHeaderCellDef> Variação em relação a D-1 </th>
+                    <td mat-cell *matCellDef="let element"> {{element.varAnterior | percent:'1.2-2'}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="varD1">
+                    <th mat-header-cell *matHeaderCellDef> Variação em relação a primeira data </th>
+                    <td mat-cell *matCellDef="let element"> {{element.varD1 | percent:'1.2-2'}}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+</div>

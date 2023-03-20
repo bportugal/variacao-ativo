@@ -1,0 +1,40 @@
+<div class="row">
+    <form [formGroup]="formStock">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="">
+                    <div class="">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Código da Ação <span class="label-required"></span></mat-label>
+                            <input id="input-codigo" type="text" matInput formControlName="stockFormControl"
+                                [(ngModel)]="stock" />
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Escolha um Range</mat-label>
+                            <mat-select [(ngModel)]="range" formControlName="rangeFormControl">
+                                <mat-option *ngFor="let item of possibleTimeSelecion"
+                                    [value]="item">{{getTimePeriodSpecWithin(item)}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Escolha um Intervalo</mat-label>
+                            <mat-select [(ngModel)]="interval" formControlName="intervalFormControl">
+                                <mat-option *ngFor="let item of possibleTimeSelecion"
+                                    [value]="item">{{getTimePeriodSpecWithin(item)}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <button mat-fab extended color="primary" appearance="fill" [disabled]="formStock.invalid"
+                            (click)="fetchStockData()">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </div>
+                    <div>Dados Obrigatórios <span class="label-required">*</span></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="searchDone" class="row">
+    <app-data-visualization [chartData]="chartData" [dataSource]="dataSource"></app-data-visualization>
+</div>

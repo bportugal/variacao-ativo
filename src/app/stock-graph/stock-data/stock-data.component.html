@@ -1,0 +1,72 @@
+<div class="modal-content ui-g-12 full-row fl pt20 pb20 modal-content-scroll mat-modal">
+    <form [formGroup]="formStock">
+        <div class="p-grid ui-fluid" fxLayout="row" fxLayout.xs="column">
+            <div class="full-row">
+                <div class="ui-lg-12 ui-g-12 margin-form">
+                    <div class="ui-lg-6 ui-g-6">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Código da Ação <span class="label-required"></span></mat-label>
+                            <input id="input-codigo" type="text" matInput formControlName="stockFormControl"
+                                        [(ngModel)]="stock" />
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Escolha um Range</mat-label>
+                            <mat-select [(ngModel)]="range" formControlName="rangeFormControl">
+                                <mat-option *ngFor="let item of possibleTimeSelecion" [value]="item">{{getTimePeriodSpecWithin(item)}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Escolha um Intervalo</mat-label>
+                            <mat-select [(ngModel)]="interval" formControlName="intervalFormControl">
+                                <mat-option *ngFor="let item of possibleTimeSelecion" [value]="item">{{getTimePeriodSpecWithin(item)}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <button mat-fab extended color="primary" appearance="fill" [disabled]="formStock.invalid" (click)="fetchStockData()">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </div>
+                    <div>Dados Obrigatórios <span class="label-required">*</span></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="searchDone">
+    <app-chart class="ui-lg-6 ui-g-6" [chartData]="chartData"></app-chart>
+
+    <h3>Tabela de Variação de Cotação de Abertura dos últimos 30 dias</h3>
+    <div class="ui-lg-6 ui-g-6">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="dia">
+              <th mat-header-cell *matHeaderCellDef> Dia </th>
+              <td mat-cell *matCellDef="let element"> {{element.dia}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="data">
+              <th mat-header-cell *matHeaderCellDef> Data </th>
+              <td mat-cell *matCellDef="let element"> {{element.data}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="valor">
+              <th mat-header-cell *matHeaderCellDef> Valores de Abertura </th>
+              <td mat-cell *matCellDef="let element"> {{element.valor | currency:'R$':true:'1.2-2'}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="varAnterior">
+              <th mat-header-cell *matHeaderCellDef> Variação em relaçào a D-1 </th>
+              <td mat-cell *matCellDef="let element"> {{element.varAnterior | percent:'1.2-2'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="varD1">
+                <th mat-header-cell *matHeaderCellDef> Variação em relação a primeira data </th>
+                <td mat-cell *matCellDef="let element"> {{element.varD1 | percent:'1.2-2'}}</td>
+              </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+          
+    </div>
+</div>

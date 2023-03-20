@@ -1,0 +1,16 @@
+<div style="margin-top: 100px;">
+    <mat-form-field appearance="fill">
+        <mat-label>Escolha um Tipo de Gráfico</mat-label>
+        <mat-select [(ngModel)]="type" (ngModelChange)="onChartTypeChanged()">
+            <mat-option *ngFor="let item of possibleChartsSelecion" [value]="item">{{item}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <google-chart #chart
+        [title]="chartProperties.title"
+        [type]="type"
+        [data]="chartProperties.data"
+        [width]="chartProperties.width"
+        [height]="chartProperties.height"
+        [options]="chartProperties.options">
+    </google-chart>
+</div>
